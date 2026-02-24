@@ -167,34 +167,36 @@ dir.create(dirname(out_csv), showWarnings = FALSE, recursive = TRUE)
 fwrite(merged_dt, out_csv)
 message("Saved merged CSV to: ", out_csv)
 
+save.image(file="merged_data.RData")
+
 # --------------------------
 # 7) Mapview Output
 # --------------------------
-if (requireNamespace("mapview", quietly = TRUE)) {
-  library(mapview)
-  grid_map <- st_sf(merged_dt, geometry = st_geometry(grid_sf), crs = crs_utm)
-  grid_map <- st_transform(grid_map, 4326)
-
-  m <- mapview(
-    grid_map,
-    zcol = "damage_points_total",
-    layer.name = "Damage points per 100m cell",
-    alpha.regions = 0.7
-  )
-
-  if (nrow(damage_dt) > 0) {
-    dmg_pts_map <- st_transform(damage_sf, 4326)
-    m <- m + mapview(
-      dmg_pts_map,
-      zcol = "damage_level",
-      layer.name = "UNOSAT damage points",
-      cex = 3
-    )
-  }
-  save_mapview_html(m, out_map_html)
-} else {
-  message("mapview not installed -> skipping map output")
-}
+# if (requireNamespace("mapview", quietly = TRUE)) {
+#   library(mapview)
+#   grid_map <- st_sf(merged_dt, geometry = st_geometry(grid_sf), crs = crs_utm)
+#   grid_map <- st_transform(grid_map, 4326)
+# 
+#   m <- mapview(
+#     grid_map,
+#     zcol = "damage_points_total",
+#     layer.name = "Damage points per 100m cell",
+#     alpha.regions = 0.7
+#   )
+# 
+#   if (nrow(damage_dt) > 0) {
+#     dmg_pts_map <- st_transform(damage_sf, 4326)
+#     m <- m + mapview(
+#       dmg_pts_map,
+#       zcol = "damage_level",
+#       layer.name = "UNOSAT damage points",
+#       cex = 3
+#     )
+#   }
+#   save_mapview_html(m, out_map_html)
+# } else {
+#   message("mapview not installed -> skipping map output")
+# }
 
 # --------------------------
 # 8) Optional Console Sanity Checks
