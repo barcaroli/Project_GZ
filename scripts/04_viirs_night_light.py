@@ -29,7 +29,7 @@ from pathlib import Path
 # 1) Authentication
 # -----------------------------
 ee.Authenticate(auth_mode="localhost")
-ee.Initialize(project="landcovercopernicus")
+ee.Initialize(project="***")
 
 # -----------------------------
 # 2) Load AOI From GeoJSON
